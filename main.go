@@ -3,10 +3,8 @@ package main
 import (
 	"encoding/json"
 	"fmt"
-	"math/rand"
 	"os"
 	"strings"
-	"time"
 )
 
 func main() {
@@ -19,7 +17,7 @@ func menu() string {
 
 	var choice string
 
-	fmt.Println("\n Options Available:\n ~ Create\n ~ List\n ~ View\n ~ Update\n ~ Delete\n ~ Help\n ~ Exit")
+	fmt.Println("\n Options Available:\n ~ Add\n ~ List\n ~ View\n ~ Update\n ~ Delete\n ~ Help\n ~ Exit")
 	fmt.Print("\n\nChoose an action to perform: ")
 	fmt.Scan(&choice)
 
@@ -31,10 +29,10 @@ func distro(r1 string) {
 	lchoice := strings.ToLower(r1)
 
 	switch lchoice {
-	case "create":
-		create()
+	case "add":
+		add()
 	case "list":
-		fmt.Println("responding")
+		list(vomit())
 	case "view":
 		fmt.Println("responding")
 	case "update":
@@ -61,40 +59,25 @@ type Header struct {
 
 func feed(struc Header) {
 
-	jdata, _ := json.Marshal(struc)
+	s := vomit()
+	s1 := []Header{struc}
+	s = append(s, s1...)
 
-	file, _ := os.OpenFile("notes.json", os.O_CREATE|os.O_APPEND|os.O_WRONLY, 0666)
+	jdata, _ := json.Marshal(s)
+
+	file, _ := os.OpenFile("notes.json", os.O_TRUNC|os.O_CREATE|os.O_APPEND|os.O_WRONLY, 0666)
 	file.Write(jdata)
 
 	defer file.Close()
 
 }
 
-func create() {
+func vomit() []Header {
 
-	var tit, cont string
+	var users []Header
 
-	randId := rand.Intn(9000) + 1000
+	jdata, _ := os.ReadFile("notes.json")
+	json.Unmarshal(jdata, &users)
 
-	fmt.Print("\nTitle : ")
-	fmt.Scan(&tit)
-
-	fmt.Print("\nContent : ")
-	fmt.Scan(&cont)
-
-	ctime := time.Now().Format("01-02-2006 15:04:05 Monday")
-
-	fmt.Println("\n\nNOTE Created Successfully at ", ctime)
-	fmt.Println("Id ~ ", randId)
-	fmt.Println("Title ~ ", tit)
-
-	user := Header{
-		Id:         randId,
-		Title:      tit,
-		Content:    cont,
-		Created_at: ctime,
-		Updated_at: ctime,
-	}
-
-	feed(user)
+	return users
 }
