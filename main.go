@@ -36,30 +36,41 @@ func distro(u []Header, str string) {
 	lch := strings.ToLower(str)
 
 	switch lch {
+
 	case "add":
 		fmt.Println("\n\n------ADD NOTES------")
 		add()
+
 	case "list":
 		fmt.Println("\n\n------ALL NOTES------")
 		list(u)
+		recurrlist()
+
 	case "view":
 		fmt.Println("\n\n------VIEW NOTES------")
 		list(u)
 		view(u, ask())
+		recurrview()
+
 	case "update":
 		fmt.Println("\n\n------UPDATE NOTES------")
 		list(u)
 		update(u, ask())
+
 	case "delete":
 		fmt.Println("\n\n------DELETE NOTES------")
 		list(u)
 		delete(u, ask())
+
 	case "exit":
 		return
+
 	default:
 		fmt.Println("\nInvalid Action. Please choose a valid action to perform......")
 		distro(vomit(), menu())
+
 	}
+
 }
 
 type Header struct {

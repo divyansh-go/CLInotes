@@ -11,6 +11,7 @@ import (
 
 func add() {
 
+	// Taking Inputs
 	var tit, cont string
 
 	randId := rand.Intn(9000) + 1000
@@ -35,21 +36,50 @@ func add() {
 		Updated_at: ctime,
 	}
 
+	// Writing Data
 	feed(user)
+
+	// Recall
+	var ch string
+
+	for {
+
+		fmt.Print("\nDo you wish to add another note? (y/n): ")
+		fmt.Scan(&ch)
+
+		switch ch {
+
+		case "y", "Y":
+			distro(nil, "add")
+			return
+
+		case "n", "N":
+			distro(vomit(), menu())
+			return
+
+		default:
+			fmt.Println("\nInvalid Input. Please try again.....")
+		}
+	}
 }
 
 func list(u []Header) {
 
-	fmt.Print("\n")
-	for i, val := range u {
+	fmt.Println("\n=============================")
+	fmt.Println("   ID   |  TITLE")
+	fmt.Println("=============================")
+	fmt.Println("")
 
-		fmt.Println(i+1, "  ", val.Id, "  ", val.Title)
+	// Printing appropriate fields
+	for _, val := range u {
+
+		fmt.Println(" ", val.Id, " | ", val.Title)
 	}
-
 }
 
 func view(u []Header, ch1 int) {
 
+	// Printing struct in proper format
 	for _, val := range u {
 
 		if val.Id == ch1 {
@@ -61,10 +91,13 @@ func view(u []Header, ch1 int) {
 			fmt.Println("Updated_at: ", val.Updated_at)
 		}
 	}
+
 }
 
 func delete(u []Header, ch1 int) {
 
+	// Printing info of the chosen noteid
+	// Taking index value of the chosen noteid
 	var index int
 
 	fmt.Println("\nYou are about to delete:")
@@ -92,6 +125,27 @@ func delete(u []Header, ch1 int) {
 		delete(u, ask())
 	}
 
+	var ch string
+
+	for {
+
+		fmt.Print("\nDo you wish to delete another note? (y/n): ")
+		fmt.Scan(&ch)
+
+		switch ch {
+
+		case "y", "Y":
+			distro(nil, "delete")
+			return
+
+		case "n", "N":
+			distro(vomit(), menu())
+			return
+
+		default:
+			fmt.Println("\nInvalid Input. Please try again.....")
+		}
+	}
 }
 
 func update(u []Header, ch1 int) {
@@ -129,4 +183,95 @@ func update(u []Header, ch1 int) {
 
 	jdata, _ := json.Marshal(u)
 	os.WriteFile("notes.json", jdata, 0666)
+
+	var ch string
+
+	for {
+
+		fmt.Print("\nDo you wish to update another note? (y/n): ")
+		fmt.Scan(&ch)
+
+		switch ch {
+
+		case "y", "Y":
+			distro(nil, "update")
+			return
+
+		case "n", "N":
+			distro(vomit(), menu())
+			return
+
+		default:
+			fmt.Println("\nInvalid Input. Please try again.....")
+		}
+	}
+}
+
+func recurrlist() {
+
+	var ch string
+
+	for {
+
+		fmt.Print("\nDo you wish to perform another action? (y/n): ")
+		fmt.Scan(&ch)
+
+		switch ch {
+
+		case "y", "Y":
+			distro(vomit(), menu())
+			return
+
+		case "n", "N":
+			for {
+
+				fmt.Print("\nAre you sure you want to exit? (y/n): ")
+				fmt.Scan(&ch)
+
+				switch ch {
+
+				case "y", "Y":
+					distro(nil, "exit")
+					return
+
+				case "n", "N":
+					distro(vomit(), menu())
+					return
+
+				default:
+					fmt.Println("\nInvalid Input. Please try again.....")
+
+				}
+			}
+
+		default:
+			fmt.Println("\nInvalid Input. Please try again.....")
+
+		}
+	}
+}
+
+func recurrview() {
+
+	var ch string
+
+	for {
+
+		fmt.Print("\nDo you wish to view another note? (y/n): ")
+		fmt.Scan(&ch)
+
+		switch ch {
+
+		case "y", "Y":
+			distro(nil, "view")
+			return
+
+		case "n", "N":
+			distro(vomit(), menu())
+			return
+
+		default:
+			fmt.Println("\nInvalid Input. Please try again.....")
+		}
+	}
 }
