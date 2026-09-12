@@ -9,22 +9,24 @@ import (
 
 func main() {
 
-	distro(menu())
+	distro(vomit(), menu())
 
+	fmt.Println("\nThank you for using Notes App")
+	fmt.Println("\nGoodbye!")
 }
 
 func menu() string {
 
 	var ch string
 
-	fmt.Println("\n Options Available:\n ~ Add\n ~ List\n ~ View\n ~ Update\n ~ Delete\n ~ Help\n ~ Exit")
+	fmt.Println("\n Options Available:\n ~ Add\n ~ List\n ~ View\n ~ Update\n ~ Delete\n ~ Exit")
 	fmt.Print("\n\nChoose an action to perform: ")
 	fmt.Scan(&ch)
 
 	return ch
 }
 
-func distro(str string) {
+func distro(u []Header, str string) {
 
 	lch := strings.ToLower(str)
 
@@ -32,23 +34,21 @@ func distro(str string) {
 	case "add":
 		add()
 	case "list":
-		list(vomit())
+		list(u)
 	case "view":
-		list(vomit())
-		view(vomit(), ask())
+		list(u)
+		view(u, ask())
 	case "update":
-		list(vomit())
-		update(vomit(), ask())
+		list(u)
+		update(u, ask())
 	case "delete":
-		list(vomit())
-		delete(vomit(), ask())
-	case "help":
-		fmt.Println("responding")
+		list(u)
+		delete(u, ask())
 	case "exit":
-		fmt.Println("responding")
+		return
 	default:
 		fmt.Println("\nInvalid Action. Please choose a valid action to perform......")
-		distro(menu())
+		distro(vomit(), menu())
 	}
 }
 
