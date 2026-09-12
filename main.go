@@ -34,12 +34,13 @@ func distro(str string) {
 	case "list":
 		list(vomit())
 	case "view":
-		view(vomit())
+		list(vomit())
+		view(vomit(), ask())
 	case "update":
-		fmt.Println("responding")
+		list(vomit())
 	case "delete":
 		list(vomit())
-		delete(vomit())
+		delete(vomit(), ask())
 	case "help":
 		fmt.Println("responding")
 	case "exit":
@@ -77,4 +78,13 @@ func vomit() []Header {
 	json.Unmarshal(jdata, &users)
 
 	return users
+}
+
+func ask() int{
+
+	var ch int
+	fmt.Print("\nEnter note ID: ")
+	fmt.Scan(&ch)
+
+	return ch
 }

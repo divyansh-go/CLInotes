@@ -48,17 +48,11 @@ func list(u []Header) {
 
 }
 
-func view(u []Header) {
-
-	list(u)
-
-	var ch int
-	fmt.Print("\nEnter note ID: ")
-	fmt.Scan(&ch)
+func view(u []Header, ch1 int) {
 
 	for _, val := range u {
 
-		if val.Id == ch {
+		if val.Id == ch1 {
 			fmt.Println("\nId: ", val.Id)
 			fmt.Println("Title: ", val.Title)
 			fmt.Println("\nContent:")
@@ -69,16 +63,14 @@ func view(u []Header) {
 	}
 }
 
-func delete(u []Header) {
+func delete(u []Header, ch1 int) {
 
-	var ch, index int
-	fmt.Print("\nEnter note Id: ")
-	fmt.Scan(&ch)
+	var index int
 
 	fmt.Println("\nYou are about to delete:")
 	for i, val := range u {
 
-		if val.Id == ch {
+		if val.Id == ch1 {
 			fmt.Println("\nId: ", val.Id)
 			fmt.Println("Title: ", val.Title)
 			index = i
@@ -97,7 +89,7 @@ func delete(u []Header) {
 		jdata, _ := json.Marshal(u)
 		os.WriteFile("notes.json", jdata, 0666)
 	case "n":
-		delete(vomit())
+		delete(vomit(), ask())
 	}
 
 }
