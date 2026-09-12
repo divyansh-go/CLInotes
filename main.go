@@ -9,14 +9,19 @@ import (
 
 func main() {
 
+	fmt.Println("==================================")
+	fmt.Println("\n             NOTEBOOK             ")
+	fmt.Println("\n==================================")
+
 	distro(vomit(), menu())
 
-	fmt.Println("\nThank you for using Notes App")
+	fmt.Println("\n\nThank you for using Notebook")
 	fmt.Println("\nGoodbye!")
 }
 
 func menu() string {
 
+	fmt.Println("\n\n------MENU------")
 	var ch string
 
 	fmt.Println("\n Options Available:\n ~ Add\n ~ List\n ~ View\n ~ Update\n ~ Delete\n ~ Exit")
@@ -32,16 +37,21 @@ func distro(u []Header, str string) {
 
 	switch lch {
 	case "add":
+		fmt.Println("\n\n------ADD NOTES------")
 		add()
 	case "list":
+		fmt.Println("\n\n------ALL NOTES------")
 		list(u)
 	case "view":
+		fmt.Println("\n\n------VIEW NOTES------")
 		list(u)
 		view(u, ask())
 	case "update":
+		fmt.Println("\n\n------UPDATE NOTES------")
 		list(u)
 		update(u, ask())
 	case "delete":
+		fmt.Println("\n\n------DELETE NOTES------")
 		list(u)
 		delete(u, ask())
 	case "exit":
