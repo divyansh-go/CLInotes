@@ -37,9 +37,31 @@ func add() {
 
 func list(u []Header) {
 
+	fmt.Print("\n")
 	for i, val := range u {
 
 		fmt.Println(i+1, "  ", val.Id, "  ", val.Title)
 	}
 
+}
+
+func view(u []Header) {
+
+	list(u)
+
+	var ch int
+	fmt.Print("\nEnter note ID: ")
+	fmt.Scan(&ch)
+
+	for _, val := range u {
+
+		if val.Id == ch {
+			fmt.Println("\nId: ", val.Id)
+			fmt.Println("Title: ", val.Title)
+			fmt.Println("\nContent:")
+			fmt.Println(val.Content)
+			fmt.Println("\nCreated_at: ", val.Created_at)
+			fmt.Println("Updated_at: ", val.Updated_at)
+		}
+	}
 }

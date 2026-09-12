@@ -34,7 +34,7 @@ func distro(r1 string) {
 	case "list":
 		list(vomit())
 	case "view":
-		fmt.Println("responding")
+		view(vomit())
 	case "update":
 		fmt.Println("responding")
 	case "delete":
@@ -65,10 +65,7 @@ func feed(struc Header) {
 
 	jdata, _ := json.Marshal(s)
 
-	file, _ := os.OpenFile("notes.json", os.O_TRUNC|os.O_CREATE|os.O_APPEND|os.O_WRONLY, 0666)
-	file.Write(jdata)
-
-	defer file.Close()
+	os.WriteFile("notes.json", jdata, 0666)
 
 }
 
