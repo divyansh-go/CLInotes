@@ -15,20 +15,20 @@ func main() {
 
 func menu() string {
 
-	var choice string
+	var ch string
 
 	fmt.Println("\n Options Available:\n ~ Add\n ~ List\n ~ View\n ~ Update\n ~ Delete\n ~ Help\n ~ Exit")
 	fmt.Print("\n\nChoose an action to perform: ")
-	fmt.Scan(&choice)
+	fmt.Scan(&ch)
 
-	return choice
+	return ch
 }
 
-func distro(r1 string) {
+func distro(str string) {
 
-	lchoice := strings.ToLower(r1)
+	lch := strings.ToLower(str)
 
-	switch lchoice {
+	switch lch {
 	case "add":
 		add()
 	case "list":
@@ -38,7 +38,8 @@ func distro(r1 string) {
 	case "update":
 		fmt.Println("responding")
 	case "delete":
-		fmt.Println("responding")
+		list(vomit())
+		delete(vomit())
 	case "help":
 		fmt.Println("responding")
 	case "exit":
@@ -64,7 +65,6 @@ func feed(struc Header) {
 	s = append(s, s1...)
 
 	jdata, _ := json.Marshal(s)
-
 	os.WriteFile("notes.json", jdata, 0666)
 
 }

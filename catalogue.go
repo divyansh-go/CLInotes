@@ -1,8 +1,11 @@
 package main
 
 import (
+	"encoding/json"
 	"fmt"
 	"math/rand"
+	"os"
+	"strings"
 	"time"
 )
 
@@ -64,4 +67,37 @@ func view(u []Header) {
 			fmt.Println("Updated_at: ", val.Updated_at)
 		}
 	}
+}
+
+func delete(u []Header) {
+
+	var ch, index int
+	fmt.Print("\nEnter note Id: ")
+	fmt.Scan(&ch)
+
+	fmt.Println("\nYou are about to delete:")
+	for i, val := range u {
+
+		if val.Id == ch {
+			fmt.Println("\nId: ", val.Id)
+			fmt.Println("Title: ", val.Title)
+			index = i
+		}
+	}
+
+	var sch string
+	fmt.Print("\nAre you sure? (y/n): ")
+	fmt.Scan(&sch)
+	lsch := strings.ToLower(sch)
+
+	switch lsch {
+	case "y":
+		u = append(u[:index], u[index+1:]...)
+
+		jdata, _ := json.Marshal(u)
+		os.WriteFile("notes.json", jdata, 0666)
+	case "n":
+		delete(vomit())
+	}
+
 }
