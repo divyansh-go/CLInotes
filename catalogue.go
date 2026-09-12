@@ -89,7 +89,44 @@ func delete(u []Header, ch1 int) {
 		jdata, _ := json.Marshal(u)
 		os.WriteFile("notes.json", jdata, 0666)
 	case "n":
-		delete(vomit(), ask())
+		delete(u, ask())
 	}
 
+}
+
+func update(u []Header, ch1 int) {
+
+	view(u, ch1)
+
+	var sch string
+	fmt.Print("\nEnter the field to be updated. (Title/Content/Both): ")
+	fmt.Scan(&sch)
+	lsch := strings.ToLower(sch)
+
+	var index int
+
+	for i, val := range u {
+
+		if val.Id == ch1 {
+
+			index = i
+		}
+	}
+
+	if lsch == "title" || lsch == "both" {
+		fmt.Print("\nEnter New Title: ")
+		fmt.Scan(&u[index].Title)
+	}
+	if lsch == "content" || lsch == "both" {
+		fmt.Println("\nEnter New Content: ")
+		fmt.Scan(&u[index].Content)
+	}
+	u[index].Updated_at = time.Now().Format("01-02-2006 15:04:05 Monday")
+
+	u = append(u, u[index])
+
+	u = append(u[:index], u[index+1:]...)
+
+	jdata, _ := json.Marshal(u)
+	os.WriteFile("notes.json", jdata, 0666)
 }

@@ -38,6 +38,7 @@ func distro(str string) {
 		view(vomit(), ask())
 	case "update":
 		list(vomit())
+		update(vomit(), ask())
 	case "delete":
 		list(vomit())
 		delete(vomit(), ask())
@@ -80,7 +81,7 @@ func vomit() []Header {
 	return users
 }
 
-func ask() int{
+func ask() int {
 
 	var ch int
 	fmt.Print("\nEnter note ID: ")
