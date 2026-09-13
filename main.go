@@ -1,9 +1,7 @@
 package main
 
 import (
-	"encoding/json"
 	"fmt"
-	"os"
 	"strings"
 )
 
@@ -39,7 +37,7 @@ func distro(u []Header, str string) {
 
 	case "add":
 		fmt.Println("\n\n------ADD NOTES------")
-		add()
+		add(u)
 
 	case "list":
 		fmt.Println("\n\n------ALL NOTES------")
@@ -73,40 +71,24 @@ func distro(u []Header, str string) {
 
 }
 
-type Header struct {
-	Id         int
-	Title      string
-	Content    string
-	Created_at string
-	Updated_at string
-}
-
-func feed(struc Header) {
-
-	s := vomit()
-	s1 := []Header{struc}
-	s = append(s, s1...)
-
-	jdata, _ := json.Marshal(s)
-	os.WriteFile("notes.json", jdata, 0666)
-
-}
-
-func vomit() []Header {
-
-	var users []Header
-
-	jdata, _ := os.ReadFile("notes.json")
-	json.Unmarshal(jdata, &users)
-
-	return users
-}
-
+// Takes input for Note ID
 func ask() int {
 
-	var ch int
-	fmt.Print("\nEnter note ID: ")
-	fmt.Scan(&ch)
+	for {
 
-	return ch
+		var ch int
+		fmt.Print("\nEnter note ID: ")
+		fmt.Scan(&ch)
+
+		// Checking whether the given Note ID exists
+		for _, val := range vomit() {
+
+			if ch == val.Id {
+
+				return ch
+			}
+		}
+
+		fmt.Println("Note ID not found. Please try again.......")
+	}
 }
