@@ -27,35 +27,59 @@ func update(u []Header, ch1 int) {
 		c := 0
 
 		// Taking the field to be updated
-		var sch string
-
 		fmt.Print("\nEnter the field to be updated. (Title/Content/Both): ")
-		fmt.Scan(&sch)
-		lsch := strings.ToLower(sch)
+		sch := strings.ToLower(get())
 
 		// Updating title and/or content
-		if lsch == "title" || lsch == "both" {
 
-			fmt.Print("\nEnter New Title: ")
-			fmt.Scan(&u[index].Title)
-			c++
+		if sch == "title" || sch == "both" {
+
+			for {
+
+				fmt.Print("\nEnter New Title: ")
+				u[index].Title = get()
+
+				c++
+
+				// Ensuring Title has some value
+				if u[index].Title != "" {
+
+					break
+				}
+
+				fmt.Println("\nTitle cannot be empty. Please enter a valid Title....")
+			}
+
 		}
 
-		if lsch == "content" || lsch == "both" {
+		if sch == "content" || sch == "both" {
 
-			fmt.Println("\nEnter New Content: ")
-			fmt.Scan(&u[index].Content)
-			c++
+			for {
+
+				fmt.Println("\nType '#' and Press 'Enter' to stop writing")
+
+				fmt.Println("\nEnter New Content: ")
+				u[index].Content = getlines()
+
+				c++
+
+				// Ensuring Content has some value
+				if u[index].Content != "" {
+
+					break
+				}
+
+				fmt.Println("\nContent cannot be empty. Please enter some content....")
+			}
 		}
 
 		// Ensuring valid field has been given
 		if c > 0 {
 
 			break
-		} else {
-
-			fmt.Println("\nPlease enter a valid field.......")
 		}
+
+		fmt.Println("\nPlease enter a valid field.......")
 	}
 
 	// Updating updation time
@@ -74,12 +98,10 @@ func update(u []Header, ch1 int) {
 	fmt.Println("\nNOTE Updated Successfully......")
 
 	// Asking whether user wants to update another note
-	var ch string
-
 	for {
 
-		fmt.Print("\nDo you wish to update another note? (y/n): ")
-		fmt.Scan(&ch)
+		fmt.Print("\nDo you wish to update another note? (Y/N): ")
+		ch := get()
 
 		switch ch {
 

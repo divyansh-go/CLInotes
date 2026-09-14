@@ -8,41 +8,50 @@ import (
 
 func add(u []Header) {
 
-	// Taking inputs for struct var
-	var tit, cont string
-
 	randId := rand.Intn(9000) + 1000
 
 	// Ensuring ID's uniqueness
-restart1:
+restart:
 	for _, val := range u {
 
 		if randId == val.Id {
 
 			randId = rand.Intn(9000) + 1000
-			goto restart1
+			goto restart
 		}
 	}
 
-	// Ensuring Title & Content has some value
-restart2:
-	fmt.Print("\nTitle : ")
-	fmt.Scan(&tit)
+	// Taking inputs for Title & Content
+	var tit, cont string
 
-	if tit == "" {
+	for {
+
+		fmt.Print("\nTitle : ")
+		tit = get()
+
+		// Ensuring Title has some value
+		if tit != "" {
+
+			break
+		}
 
 		fmt.Println("\nTitle cannot be empty. Please enter a valid Title....")
-		goto restart2
 	}
 
-restart3:
-	fmt.Print("\nContent : ")
-	fmt.Scan(&cont)
+	for {
 
-	if cont == "" {
+		fmt.Println("\nType '#' and Press 'Enter' to stop writing.")
+
+		fmt.Print("\nContent : ")
+		cont = getlines()
+
+		// Ensuring Content has some value
+		if cont != "" {
+
+			break
+		}
 
 		fmt.Println("\nContent cannot be empty. Please enter some content....")
-		goto restart3
 	}
 
 	ctime := time.Now().Format("01-02-2006 15:04:05 Monday")
@@ -73,16 +82,14 @@ restart3:
 	fmt.Println("Title ~ ", tit)
 
 	// Asking whether user wants to add another note
-	var ch string
-
 	for {
 
-		fmt.Print("\nDo you wish to add another note? (y/n): ")
-		fmt.Scan(&ch)
+		fmt.Print("\nDo you wish to add another note? (Y/N): ")
+		ch := get()
 
 		switch ch {
 
-		// Redirecting to add() throught distro()
+		// Redirecting to add() through distro()
 		case "y", "Y":
 			distro(vomit(), "add")
 			return

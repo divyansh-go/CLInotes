@@ -1,7 +1,9 @@
 package main
 
 import (
+	"bufio"
 	"fmt"
+	"os"
 	"strings"
 )
 
@@ -20,13 +22,11 @@ func main() {
 func menu() string {
 
 	fmt.Println("\n\n------MENU------")
-	var ch string
 
 	fmt.Println("\n Options Available:\n ~ Add\n ~ List\n ~ View\n ~ Update\n ~ Delete\n ~ Exit")
 	fmt.Print("\n\nChoose an action to perform: ")
-	fmt.Scan(&ch)
 
-	return ch
+	return get()
 }
 
 func distro(u []Header, str string) {
@@ -91,4 +91,22 @@ func ask() int {
 
 		fmt.Println("Note ID not found. Please try again.......")
 	}
+}
+
+func get() string {
+
+	reader := bufio.NewReader(os.Stdin)
+	input, _ := reader.ReadString('\n')
+	input = strings.TrimSpace(strings.TrimSuffix(input, "\n"))
+
+	return input
+}
+
+func getlines() string {
+
+	reader := bufio.NewReader(os.Stdin)
+	input, _ := reader.ReadString('#')
+	input = strings.TrimSuffix(strings.TrimSpace(strings.TrimSuffix(strings.TrimSuffix(input, "#"), "\n")), "\n")
+
+	return input
 }

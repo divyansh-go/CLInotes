@@ -2,21 +2,20 @@ package main
 
 import (
 	"fmt"
-	"strings"
 )
 
-func delete(u []Header, ch1 int) {
+func delete(u []Header, ch int) {
 
 	// Printing info of the chosen noteid
 	fmt.Println("\nYou are about to delete:")
-	view(u, ch1)
+	view(u, ch)
 
 	// Taking index value of the chosen noteid
 	var index int
 
 	for i, val := range u {
 
-		if val.Id == ch1 {
+		if val.Id == ch {
 
 			index = i
 		}
@@ -27,16 +26,13 @@ loop:
 
 	for {
 
-		var sch string
+		fmt.Print("\nAre you sure? (Y/N): ")
+		sch := get()
 
-		fmt.Print("\nAre you sure? (y/n): ")
-		fmt.Scan(&sch)
-		lsch := strings.ToLower(sch)
-
-		switch lsch {
+		switch sch {
 
 		// Performing deletion & breaking the loop
-		case "y":
+		case "y", "Y":
 			u = append(u[:index], u[index+1:]...)
 
 			// Feeding updated data to the file
@@ -48,7 +44,7 @@ loop:
 			break loop
 
 		// Redirecting to distro()
-		case "n":
+		case "n", "N":
 			distro(u, menu())
 			return
 
@@ -60,14 +56,12 @@ loop:
 	}
 
 	// Asking whether user wants to delete another Note
-	var ch string
-
 	for {
 
-		fmt.Print("\nDo you wish to delete another note? (y/n): ")
-		fmt.Scan(&ch)
+		fmt.Print("\nDo you wish to delete another note? (Y/N): ")
+		sch := get()
 
-		switch ch {
+		switch sch {
 
 		// Redirecting to delete() through distro()
 		case "y", "Y":

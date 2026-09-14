@@ -19,12 +19,10 @@ func list(u []Header) {
 // Asks user if they wish to continue to menu, after executing list()
 func recurrlist() {
 
-	var ch string
-
 	for {
 
-		fmt.Print("\nDo you wish to perform another action? (y/n): ")
-		fmt.Scan(&ch)
+		fmt.Print("\nDo you wish to perform another action? (Y/N): ")
+		ch := get()
 
 		switch ch {
 
@@ -35,8 +33,8 @@ func recurrlist() {
 		case "n", "N":
 			for {
 
-				fmt.Print("\nAre you sure you want to exit? (y/n): ")
-				fmt.Scan(&ch)
+				fmt.Print("\nAre you sure you want to exit? (Y/N): ")
+				ch = get()
 
 				switch ch {
 

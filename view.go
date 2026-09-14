@@ -24,12 +24,10 @@ func view(u []Header, ch1 int) {
 // Asks user if they wish to view another Note, after executing view()
 func recurrview() {
 
-	var ch string
-
 	for {
 
-		fmt.Print("\nDo you wish to view another note? (y/n): ")
-		fmt.Scan(&ch)
+		fmt.Print("\nDo you wish to view another note? (Y/N): ")
+		ch := get()
 
 		switch ch {
 
