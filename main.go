@@ -103,7 +103,16 @@ func ask() int {
 func get() string {
 
 	reader := bufio.NewReader(os.Stdin)
-	input, _ := reader.ReadString('\n')
+	input, err := reader.ReadString('\n')
+
+	if err != nil {
+
+		fmt.Println("\nFailed to read input.")
+		fmt.Println("Error: ", err)
+
+		return ""
+	}
+
 	input = strings.TrimSpace(strings.TrimSuffix(input, "\n"))
 
 	return input
@@ -112,7 +121,16 @@ func get() string {
 func getlines() string {
 
 	reader := bufio.NewReader(os.Stdin)
-	input, _ := reader.ReadString('#')
+	input, err := reader.ReadString('#')
+
+	if err != nil {
+
+		fmt.Println("\nFailed to read input.")
+		fmt.Println("Error: ", err)
+
+		return ""
+	}
+
 	input = strings.TrimSuffix(strings.TrimSpace(strings.TrimSuffix(strings.TrimSuffix(input, "#"), "\n")), "\n")
 
 	return input
