@@ -4,6 +4,7 @@ import (
 	"bufio"
 	"fmt"
 	"os"
+	"strconv"
 	"strings"
 )
 
@@ -76,9 +77,15 @@ func ask() int {
 
 	for {
 
-		var ch int
+	loop:
 		fmt.Print("\nEnter note ID: ")
-		fmt.Scan(&ch)
+		ch, err := strconv.Atoi(get())
+
+		if err != nil {
+
+			fmt.Println("\nPlease enter a valid number........")
+			goto loop
+		}
 
 		// Checking whether the given Note ID exists
 		for _, val := range vomit() {
