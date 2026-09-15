@@ -96,7 +96,7 @@ func ask() int {
 			}
 		}
 
-		fmt.Println("Note ID not found. Please try again.......")
+		fmt.Println("\nNote ID not found. Please try again.......")
 	}
 }
 
